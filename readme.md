@@ -38,6 +38,8 @@ air
 
 ## TODO
 
-[] Implement HTMX to have dynamic content and state management
+[] Implement HTMX to have dynamic content and state management (https://templ.guide/server-side-rendering/htmx/ and https://htmx.org)
+[] Implement basic testing
 [] Increase basic structure to have a design system, components, layouts, etc. https://templ.guide
+[] Implement CI/CD with github actions and AWS lambda function?
 [] Generate the same template but for static files (Example: Blog)
