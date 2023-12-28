@@ -1,0 +1,9 @@
+package hello
+
+templ View(name string) {
+	if name == "" {
+		<div>Hello!</div>
+	} else {
+		<div>Hello, { name }!</div>
+	}
+}
