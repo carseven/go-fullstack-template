@@ -61,20 +61,22 @@ air
 - [] Implement basic testing
 - [] Implement structure to separate API from frontend (/api and /app)
 - [] Implement CI/CD with github actions and AWS lambda function?
-- [] Generate the same template but for static files (Example: Blog)
+- [x] Generate the same template but for static files (Example: Blog)
 - [] Add metadata parametrization to improve SEO by default
 - [] Add language translation
-- [] Add markdown support to render to HTML and be able to inject components inside
+- [x] Add markdown support to render to HTML and be able to inject components inside
+- [] Load markdown from external files and render component (Example: CMS to load md files)
+- [] Add cache mechanism for static files
 - [] Find more inspiration with Astro templates, really great ideas
 - [] Render components from other JS frameworks, sometimes is need to avoid massive refactors and for maintenance of legacy code
-- [] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
+- [x] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
 - [] CLI tool to create the boilerplate?
-
-Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
+- [] Add database integration layer
+  Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
 
 - [x] Components
 - [x] Layouts
 - [x] View
-- [] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
+- [x] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
 - [] Dark mode
 - [] Final refactor of the structure
