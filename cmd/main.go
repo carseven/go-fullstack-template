@@ -16,6 +16,9 @@ func main() {
 	app.GET("/hello", helloHandler.HandleHello)
 	app.GET("/hello/:name", helloHandler.HandleHello)
 
+	mdHandle := handler.MdHandler{}
+	app.GET("/md", mdHandle.HandleMd)
+
 	// TODO: Refactor to proper handlers
 	app.GET("ip", func(c echo.Context) error {
 		resp, err := http.Get("http://ipecho.net/plain")

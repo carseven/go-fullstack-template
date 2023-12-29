@@ -1,0 +1,14 @@
+package blog
+
+templ View(blogHtml string) {
+	<article class="markdown">
+		@renderHtmlUnsafe(blogHtml)
+	</article>
+}
+
+func renderHtmlUnsafe(html string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		_, err = io.WriteString(w, html)
+		return
+	})
+}

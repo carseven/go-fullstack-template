@@ -1,8 +1,6 @@
 package layout
 
-import "github.com/carseven/go-fullstack-template/view/cases"
-
-templ Base(name string) {
+templ Base(component templ.Component) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -17,7 +15,7 @@ templ Base(name string) {
 			<link rel="stylesheet" href="/assets/tailwind"/>
 		</head>
 		<body>
-			@hello.View(name)
+			@component
 		</body>
 	</html>
 }
