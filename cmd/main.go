@@ -43,6 +43,7 @@ func main() {
 	// TODO: Add generic form to access all assets (Aware to avoid leaks!!!)
 	// TODO: Add cache control policy
 	app.File("/assets/htmx", "assets/js/htmx/htmx@1.9.10.min.js")
+	app.File("/assets/tailwind", "assets/css/tailwindcss/dist/style.css")
 
 	app.Start(":3000")
 

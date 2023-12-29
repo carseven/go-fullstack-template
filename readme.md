@@ -18,6 +18,24 @@ Make sure go binary are exported to the path:
 export PATH="$HOME/go/bin:$PATH"
 ```
 
+Install nodejs and npm to be able to use the tailwind compiler:
+Personally I install nodejs using nvm or fvm.
+
+Check tailwind cli works properly.
+
+```bash
+npx tailwind --help
+```
+
+If a specific version is need instead of the latest, just change the make file with the proper version:
+Be aware of the tailwind.config.js file might change. Edited as you like it
+
+```bash
+npx tailwind@3.4.0 -i ./assets/css/tailwindcss/tailwind.css -o ./assets/css/tailwindcss/dist/style.css
+```
+
+For more info about tailwind check https://tailwindcss.com/docs/installation
+
 ## Build
 
 Use make to build or run the application:
@@ -49,11 +67,14 @@ air
 - [] Add markdown support to render to HTML and be able to inject components inside
 - [] Find more inspiration with Astro templates, really great ideas
 - [] Render components from other JS frameworks, sometimes is need to avoid massive refactors and for maintenance of legacy code
+- [] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
+- [] CLI tool to create the boilerplate?
 
 Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
 
 - [x] Components
 - [x] Layouts
 - [x] View
-- [] CSS design system (Probably be compatible with tailwind?) Probably better idea ti implement tailwind for better adoption, but nice to have ways to still as templ defines
+- [] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
+- [] Dark mode
 - [] Final refactor of the structure
