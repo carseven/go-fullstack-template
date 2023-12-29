@@ -41,11 +41,17 @@ For more info about tailwind check https://tailwindcss.com/docs/installation
 Use make to build or run the application:
 
 ```bash
-make run
+make build
 ```
 
 ```bash
 make run
+```
+
+Generate templ and tailwind:
+
+```bash
+make generate
 ```
 
 Use air to launch the hot reloading mode:
