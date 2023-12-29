@@ -6,4 +6,5 @@ templ View(name string) {
 	} else {
 		<div>Hello, { name }!</div>
 	}
+	<div hx-get="/ip" hx-trigger="every 2s"></div>
 }

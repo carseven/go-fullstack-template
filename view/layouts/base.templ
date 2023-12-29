@@ -1,0 +1,22 @@
+package layout
+
+import "github.com/carseven/go-fullstack-template/view/cases"
+
+templ Base(name string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<!-- TODO: Parametrize SEO meta info with variables-->
+			<meta name="description" content="TODO: Add page description"/>
+			<title>TODO: Change page title</title>
+			<!-- TODO: Add basic header information, create a component to add openGraph and other stuf -->
+			<!-- Add defer if HTMX is not going to be used at the beginning when the page has been loaded This will remove the block of the script and render the HTML content a bit faster -->
+			<script src="/assets/htmx"></script>
+		</head>
+		<body>
+			@hello.View(name)
+		</body>
+	</html>
+}
