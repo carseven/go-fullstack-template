@@ -1,16 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/carseven/go-fullstack-template/handler"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	app := echo.New()
+
+	app.Use(middleware.Logger())
+	app.Use(middleware.Recover())
 
 	helloHandler := handler.HelloHandler{}
 	app.GET("/hello", helloHandler.HandleHello)
@@ -48,6 +53,17 @@ func main() {
 	app.File("/assets/htmx", "assets/js/htmx/htmx@1.9.10.min.js")
 	app.File("/assets/tailwind", "assets/css/tailwindcss/dist/style.css")
 
-	app.Start(":3000")
+	// TODO: ENV variable
+	devMode := false
+	if devMode {
+		sessionId := uuid.New()
+		fmt.Println(sessionId.String())
+		devHandler := handler.DevHandle{SessionUUID: sessionId.String()}
+		app.GET("/ws", devHandler.DevHandleClientReloadWS)
+	}
 
+	err := app.Start(":3000")
+	if err != nil {
+		panic(err)
+	}
 }

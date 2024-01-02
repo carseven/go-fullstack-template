@@ -68,6 +68,8 @@ air
 - [ ] Implement structure to separate API from frontend (/api and /app)
 - [ ] Implement CI/CD with github actions and AWS lambda function?
 - [x] Generate the same template but for static files (Example: Blog)
+- [ ] Dev and Prod mode
+- [ ] Client reloading web server has changed (Websocket client communication to reload HTML pages when view has changed) Replicate Vite implementation (WS to send event of reload to the client. Also, client PING websocket to check connection alive and then polling to relaunch when the server connect again?)
 - [ ] Add metadata parametrization to improve SEO by default
 - [ ] Add language translation
 - [x] Add markdown support to render to HTML and be able to inject components inside
@@ -78,7 +80,8 @@ air
 - [x] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
 - [ ] CLI tool to create the boilerplate?
 - [ ] Add database integration layer
-      Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
+- [ ] Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
+- [ ] Inject JS or Typescript using vite https://github.com/pilcrowOnPaper/go-vite (As a alternative, because sometimes is need it to done client side outside HTMX, for example, integrate with legacy code or use complex things already done in JS!)
 
 - [x] Components
 - [x] Layouts
@@ -86,3 +89,13 @@ air
 - [x] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
 - [ ] Dark mode
 - [ ] Final refactor of the structure
+
+## Bugs
+
+Sometimes when killing the dev server does not kill the port 3000. For the moment kill it maually
+
+```bash
+lsof -i:3000
+
+pkill pid
+```

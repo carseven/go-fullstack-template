@@ -1,5 +1,42 @@
 package layout
 
+script loadDevServer() {
+	var wsuri = "ws://127.0.0.1:3001/ws";
+
+	window.onload = function () {
+		console.log("onload");
+
+		const sock = new WebSocket(wsuri);
+
+		sock.onopen = function () {
+			console.log("connected to " + wsuri);
+		};
+
+		sock.onclose = function (e) {
+			console.log("connection closed (" + e.code + ")");
+		};
+
+		// First message will be the sessionId, if changed means the server has been reload
+		// Reload page and clear the sessionId
+		let firstMessage = true;
+		let sessionId = undefined;
+		sock.onmessage = function (e) {
+			const data = e.data;
+			if (firstMessage) {
+				firstMessage = false;
+				sessionId = data;
+				
+			}
+			console.log("message received: " + data);
+			if (data !== sessionId) {
+				console.log("Reloading page...");
+				window.location.reload();
+			}
+		};
+	};
+
+}
+
 templ Base(component templ.Component) {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -15,6 +52,7 @@ templ Base(component templ.Component) {
 			<link rel="stylesheet" href="/assets/tailwind"/>
 		</head>
 		<body>
+			<h1>Version 1</h1>
 			@component
 		</body>
 	</html>

@@ -10,6 +10,47 @@ import "context"
 import "io"
 import "bytes"
 
+func loadDevServer() templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_loadDevServer_957f`,
+		Function: `function __templ_loadDevServer_957f(){var wsuri = "ws://127.0.0.1:3001/ws";
+
+	window.onload = function () {
+		console.log("onload");
+
+		const sock = new WebSocket(wsuri);
+
+		sock.onopen = function () {
+			console.log("connected to " + wsuri);
+		};
+
+		sock.onclose = function (e) {
+			console.log("connection closed (" + e.code + ")");
+		};
+
+		// First message will be the sessionId, if changed means the server has been reload
+		// Reload page and clear the sessionId
+		let firstMessage = true;
+		let sessionId = undefined;
+		sock.onmessage = function (e) {
+			const data = e.data;
+			if (firstMessage) {
+				firstMessage = false;
+				sessionId = data;
+				
+			}
+			console.log("message received: " + data);
+			if (data !== sessionId) {
+				console.log("Reloading page...");
+				window.location.reload();
+			}
+		};
+	};}`,
+		Call:       templ.SafeScript(`__templ_loadDevServer_957f`),
+		CallInline: templ.SafeScriptInline(`__templ_loadDevServer_957f`),
+	}
+}
+
 func Base(component templ.Component) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -68,7 +109,16 @@ func Base(component templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><link rel=\"stylesheet\" href=\"/assets/tailwind\"></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><link rel=\"stylesheet\" href=\"/assets/tailwind\"></head><body><h1>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var7 := `Version 1`
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
