@@ -6,9 +6,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type HelloHandler struct{}
+type HelloHandler struct {
+	Environment string
+}
 
 func (h HelloHandler) HandleHello(c echo.Context) error {
 	name := c.Param("name")
-	return render(c, layout.Base(hello.View(name)))
+	userLanguage := "es" // TODO: Get Accept-Language from request header
+	return render(c, layout.Base(hello.View(name, userLanguage), h.Environment))
 }

@@ -9,7 +9,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type MdHandler struct{}
+type MdHandler struct {
+	Environment string
+}
 
 var mds = `# Title
 ## Title 2
@@ -24,7 +26,7 @@ Example of text
 func (h MdHandler) HandleMd(c echo.Context) error {
 	blogHtml := mdToHTML([]byte(mds))
 	blogView := blog.View(string(blogHtml))
-	return render(c, layout.Base(blogView))
+	return render(c, layout.Base(blogView, h.Environment))
 }
 
 func mdToHTML(md []byte) []byte {

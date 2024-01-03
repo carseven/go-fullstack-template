@@ -1,10 +1,12 @@
 package hello
 
-templ View(name string) {
+import "github.com/carseven/go-fullstack-template/languages"
+
+templ View(name string, userLanguage string) {
+	<h1>Version </h1>
 	if name == "" {
-		<div class="bg-red-500">Hello!</div>
+		<div class="bg-red-500">{ languages.GetKeyTranslation("HELLO", userLanguage) }!</div>
 	} else {
-		<div>Hello, { name }!</div>
+		<div>{ languages.GetKeyTranslation("HELLO", userLanguage) }, { name }!</div>
 	}
-	<div hx-get="/ip" hx-trigger="every 2s"></div>
 }

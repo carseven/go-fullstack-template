@@ -1,43 +1,44 @@
 package layout
 
 script loadDevServer() {
-	var wsuri = "ws://127.0.0.1:3001/ws";
+	var wsuri = "ws://127.0.0.1:3000/ws";
 
 	window.onload = function () {
-		console.log("onload");
-
+		console.log("[INIT WS] Dev Server");
 		const sock = new WebSocket(wsuri);
-
 		sock.onopen = function () {
-			console.log("connected to " + wsuri);
+			console.log("[CONNECTED WS] Dev Server: " + wsuri);
 		};
 
 		sock.onclose = function (e) {
-			console.log("connection closed (" + e.code + ")");
+			console.log("[DISCONNECTED WS] Dev Server: " + wsuri);
+			console.log("[ERROR] (" + e.code + ")");
+
+			// Poll server until up
+			console.log("[INIT POOLING] Dev Server. Trying to reconnect the dev server!" + wsuri);
+			setInterval(() => {
+				fetch("http://127.0.0.1:3000/health").then((devServerResponse) => {
+					// Check if response 200 (Server is up and running again, reload client page)
+					if (devServerResponse.status === 200) {
+						window.location.reload();
+					} else {
+						console.log("[ERROR] Dev server connected but response is not 200!")	
+					}
+				}).catch(() => {
+					console.log("[ERROR] Dev server not connected!")
+				})
+			}, 500);
 		};
 
-		// First message will be the sessionId, if changed means the server has been reload
-		// Reload page and clear the sessionId
-		let firstMessage = true;
-		let sessionId = undefined;
-		sock.onmessage = function (e) {
-			const data = e.data;
-			if (firstMessage) {
-				firstMessage = false;
-				sessionId = data;
-				
-			}
-			console.log("message received: " + data);
-			if (data !== sessionId) {
-				console.log("Reloading page...");
-				window.location.reload();
-			}
-		};
+		// Ping pong to check connection
+		setInterval(() => {
+			sock.send("PING");
+		}, 5000)
 	};
 
 }
 
-templ Base(component templ.Component) {
+templ Base(component templ.Component, environment string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -49,10 +50,12 @@ templ Base(component templ.Component) {
 			<!-- TODO: Add basic header information, create a component to add openGraph and other stuf -->
 			<!-- Add defer if HTMX is not going to be used at the beginning when the page has been loaded This will remove the block of the script and render the HTML content a bit faster -->
 			<script src="/assets/htmx"></script>
+			if environment == "DEV" {
+				@loadDevServer()
+			}
 			<link rel="stylesheet" href="/assets/tailwind"/>
 		</head>
 		<body>
-			<h1>Version 1</h1>
 			@component
 		</body>
 	</html>

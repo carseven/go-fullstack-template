@@ -12,46 +12,47 @@ import "bytes"
 
 func loadDevServer() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_loadDevServer_957f`,
-		Function: `function __templ_loadDevServer_957f(){var wsuri = "ws://127.0.0.1:3001/ws";
+		Name: `__templ_loadDevServer_dc56`,
+		Function: `function __templ_loadDevServer_dc56(){var wsuri = "ws://127.0.0.1:3000/ws";
 
 	window.onload = function () {
-		console.log("onload");
-
+		console.log("[INIT WS] Dev Server");
 		const sock = new WebSocket(wsuri);
-
 		sock.onopen = function () {
-			console.log("connected to " + wsuri);
+			console.log("[CONNECTED WS] Dev Server: " + wsuri);
 		};
 
 		sock.onclose = function (e) {
-			console.log("connection closed (" + e.code + ")");
+			console.log("[DISCONNECTED WS] Dev Server: " + wsuri);
+			console.log("[ERROR] (" + e.code + ")");
+
+			// Poll server until up
+			console.log("[INIT POOLING] Dev Server. Trying to reconnect the dev server!" + wsuri);
+			setInterval(() => {
+				fetch("http://127.0.0.1:3000/health").then((devServerResponse) => {
+					// Check if response 200 (Server is up and running again, reload client page)
+					if (devServerResponse.status === 200) {
+						window.location.reload();
+					} else {
+						console.log("[ERROR] Dev server connected but response is not 200!")	
+					}
+				}).catch(() => {
+					console.log("[ERROR] Dev server not connected!")
+				})
+			}, 500);
 		};
 
-		// First message will be the sessionId, if changed means the server has been reload
-		// Reload page and clear the sessionId
-		let firstMessage = true;
-		let sessionId = undefined;
-		sock.onmessage = function (e) {
-			const data = e.data;
-			if (firstMessage) {
-				firstMessage = false;
-				sessionId = data;
-				
-			}
-			console.log("message received: " + data);
-			if (data !== sessionId) {
-				console.log("Reloading page...");
-				window.location.reload();
-			}
-		};
+		// Ping pong to check connection
+		setInterval(() => {
+			sock.send("PING");
+		}, 5000)
 	};}`,
-		Call:       templ.SafeScript(`__templ_loadDevServer_957f`),
-		CallInline: templ.SafeScriptInline(`__templ_loadDevServer_957f`),
+		Call:       templ.SafeScript(`__templ_loadDevServer_dc56`),
+		CallInline: templ.SafeScriptInline(`__templ_loadDevServer_dc56`),
 	}
 }
 
-func Base(component templ.Component) templ.Component {
+func Base(component templ.Component, environment string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -109,16 +110,17 @@ func Base(component templ.Component) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><link rel=\"stylesheet\" href=\"/assets/tailwind\"></head><body><h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var7 := `Version 1`
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		if environment == "DEV" {
+			templ_7745c5c3_Err = loadDevServer().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/assets/tailwind\"></head><body>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

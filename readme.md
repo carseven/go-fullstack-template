@@ -62,40 +62,41 @@ air
 
 ## TODO
 
-- [x] Implement HTMX to have dynamic content and state management (https://templ.guide/server-side-rendering/htmx/ and https://htmx.org)
+Basic features (MVP)
 
-- [ ] Implement basic testing
-- [ ] Implement structure to separate API from frontend (/api and /app)
-- [ ] Implement CI/CD with github actions and AWS lambda function?
-- [x] Generate the same template but for static files (Example: Blog)
-- [ ] Dev and Prod mode
-- [ ] Client reloading web server has changed (Websocket client communication to reload HTML pages when view has changed) Replicate Vite implementation (WS to send event of reload to the client. Also, client PING websocket to check connection alive and then polling to relaunch when the server connect again?)
-- [ ] Add metadata parametrization to improve SEO by default
-- [ ] Add language translation
-- [x] Add markdown support to render to HTML and be able to inject components inside
+- [x] Implement HTMX to have dynamic content and state management (https://templ.guide/server-side-rendering/htmx/ and https://htmx.org)
 - [ ] Load markdown from external files and render component (Example: CMS to load md files)
 - [ ] Use Notion as a CMS to retrieve markdown
-- [ ] Add cache mechanism for static files
-- [ ] Find more inspiration with Astro templates, really great ideas
-- [x] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
-- [ ] CLI tool to create the boilerplate?
 - [ ] Add database integration layer
-- [ ] Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter
-- [ ] Inject JS or Typescript using vite https://github.com/pilcrowOnPaper/go-vite (As a alternative, because sometimes is need it to done client side outside HTMX, for example, integrate with legacy code or use complex things already done in JS!)
-
-- [x] Components
-- [x] Layouts
-- [x] View
+- [ ] Configure tailwind with Dark mode
+- [ ] Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter (separate API from frontend (/api and /app))
+- [ ] Implement basic testing
+- [ ] Implement CI/CD with github actions and AWS lambda function?
+- [ ] Add metadata parametrization to improve SEO by default
+- [x] Add language translation
+- [ ] Load language translation from JSON file instead of struct
+- [ ] CLI tool to create the boilerplate or just create a fmk?
+- [x] Generate the same template but for static files (Example: Blog)
+- [x] Dev and Prod mode
+- [x] Client reloading web server has changed (Websocket client communication to reload HTML pages when view has changed) Replicate Vite implementation (WS to send event of reload to the client. Also, client PING websocket to check connection alive and then polling to relaunch when the server connect again?)
+- [x] Add markdown support to render to HTML and be able to inject components inside
+- [x] Add cache mechanism for static files
+- [x] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
 - [x] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
-- [ ] Dark mode
-- [ ] Final refactor of the structure
+
+Optional features
+
+- [ ] Inject JS or Typescript using vite https://github.com/pilcrowOnPaper/go-vite (As a alternative, because sometimes is need it to done client side outside HTMX, for example, integrate with legacy code or use complex things already done in JS!)
+- [ ] Find more inspiration with Astro templates, really great ideas
 
 ## Bugs
 
-Sometimes when killing the dev server does not kill the port 3000. For the moment kill it maually
+Sometimes when killing the dev server does not kill the port 3000. For the moment kill it manually
 
 ```bash
 lsof -i:3000
 
 pkill pid
+or
+kill -9 pid
 ```
