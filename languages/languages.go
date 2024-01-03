@@ -52,11 +52,14 @@ func LoadLanguagesTranslations() {
 
 // Load language key, and info language not supported use the default language
 // If the key is not found, just return the key
-func GetKeyTranslation(key string, language string) string {
-	// Check key exist in the language provide and return if so
-	translation := languages[language][key]
-	if translation != "" {
-		return translation
+func GetKeyTranslation(key string, userLanguages []string) string {
+	var translation string
+	for _, language := range userLanguages {
+		// Check key exist in the language provide and return if so
+		translation = languages[language][key]
+		if translation != "" {
+			return translation
+		}
 	}
 
 	// If no exist check key exist in the default language (en by default)

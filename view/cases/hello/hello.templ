@@ -2,7 +2,7 @@ package hello
 
 import "github.com/carseven/go-fullstack-template/languages"
 
-templ View(name string, userLanguage string) {
+templ View(name string, userLanguage []string) {
 	<h1>Version </h1>
 	if name == "" {
 		<div class="bg-red-500">{ languages.GetKeyTranslation("HELLO", userLanguage) }!</div>

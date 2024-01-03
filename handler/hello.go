@@ -12,6 +12,7 @@ type HelloHandler struct {
 
 func (h HelloHandler) HandleHello(c echo.Context) error {
 	name := c.Param("name")
-	userLanguage := "es" // TODO: Get Accept-Language from request header
+
+	userLanguage := GetRequestHeaderKey(c, "Accept-Language")
 	return render(c, layout.Base(hello.View(name, userLanguage), h.Environment))
 }
