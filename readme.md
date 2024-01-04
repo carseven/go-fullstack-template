@@ -75,6 +75,7 @@ Basic features (MVP)
 - [ ] Add metadata parametrization to improve SEO by default
 - [x] Add language translation
 - [ ] Load language translation from JSON file instead of struct
+- [ ] Swagger for documenting the APIs
 - [ ] CLI tool to create the boilerplate or just create a fmk?
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode
