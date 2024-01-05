@@ -76,6 +76,7 @@ Basic features (MVP)
 - [x] Add language translation
 - [ ] Load language translation from JSON file instead of struct
 - [ ] Swagger for documenting the APIs
+- [ ] Documentation page
 - [ ] CLI tool to create the boilerplate or just create a fmk?
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode
