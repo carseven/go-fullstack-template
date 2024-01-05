@@ -78,6 +78,7 @@ Basic features (MVP)
 - [ ] Swagger for documenting the APIs
 - [ ] Documentation page
 - [ ] CLI tool to create the boilerplate or just create a fmk?
+- [ ] Observability
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode
 - [x] Client reloading web server has changed (Websocket client communication to reload HTML pages when view has changed) Replicate Vite implementation (WS to send event of reload to the client. Also, client PING websocket to check connection alive and then polling to relaunch when the server connect again?)
