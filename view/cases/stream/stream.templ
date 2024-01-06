@@ -1,0 +1,27 @@
+package stream
+
+script HlsLoader(streamId string) {
+    if (Hls.isSupported()) {
+        var video = document.getElementById('stream');
+        var hls = new Hls();
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        console.log('video and hls.js are now bound together !');
+        });
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        console.log(
+            'manifest loaded, found ' + data.levels.length + ' quality level',
+        );
+        });
+        hls.loadSource(`/video/${streamId}/${streamId}-master.m3u8`);
+        // bind them together
+        hls.attachMedia(video);
+        video.play();
+    } else {
+        alert("HLS not suppoted, use compatible browser as Google Chrome, Safari, Firefox, etc!")
+    }
+}
+
+templ StreamView(userLanguage []string, streamId string) {
+	<video controls autoplay id="stream"></video>
+	@HlsLoader(streamId)
+}

@@ -50,6 +50,8 @@ templ Base(component templ.Component, environment string) {
 			<!-- TODO: Add basic header information, create a component to add openGraph and other stuf -->
 			<!-- Add defer if HTMX is not going to be used at the beginning when the page has been loaded This will remove the block of the script and render the HTML content a bit faster -->
 			<script src="/assets/htmx"></script>
+			<script src="/assets/hls"></script>
+			<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 			if environment == "DEV" {
 				@loadDevServer()
 			}

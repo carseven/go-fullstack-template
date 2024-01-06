@@ -1,0 +1,18 @@
+package stream
+
+templ DashboardView(userLanguage []string, streamIds []string) {
+	<h1>Stream Dashboard</h1>
+	if (len(streamIds) > 0) {
+		<h2>Current streams</h2>
+		for _, streamId := range streamIds {
+			<a href={ templ.URL("/stream/" + streamId) }>Stream: { streamId }</a>
+		}
+	}
+	<h2>Upload Stream</h2>
+	<form method="post" enctype="multipart/form-data" action="/upload">
+		<input type="file" id="video" name="video" accept="video/mp4"/>
+		<div>
+			<button>Submit</button>
+		</div>
+	</form>
+}

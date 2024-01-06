@@ -65,6 +65,7 @@ air
 Basic features (MVP)
 
 - [x] Implement HTMX to have dynamic content and state management (https://templ.guide/server-side-rendering/htmx/ and https://htmx.org)
+- [ ] Format DEV logs properly for easy DEBUG
 - [ ] Load markdown from external files and render component (Example: CMS to load md files)
 - [ ] Use Notion as a CMS to retrieve markdown
 - [ ] Add database integration layer
@@ -77,7 +78,8 @@ Basic features (MVP)
 - [ ] Load language translation from JSON file instead of struct
 - [ ] Swagger for documenting the APIs
 - [ ] Documentation page
-- [ ] CLI tool to create the boilerplate or just create a fmk?
+- [ ] Default error handling, 404 not found and other methods
+- [x] Video streaming use case
 - [ ] Observability
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode

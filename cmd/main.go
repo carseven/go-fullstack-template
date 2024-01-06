@@ -30,6 +30,11 @@ func main() {
 	mdHandle := &handler.MdHandler{Environment: environment}
 	app.GET("/md", mdHandle.HandleMd)
 
+	streamHandle := &handler.StreamHandler{Environment: environment}
+	app.POST("/upload", streamHandle.HandleUpload)
+	app.GET("/stream", streamHandle.HandleStream)
+	app.GET("/stream/:streamId", streamHandle.HandleStream)
+
 	// TODO: Refactor to proper handlers
 	app.GET("ip", func(c echo.Context) error {
 		resp, err := http.Get("http://ipecho.net/plain")
@@ -68,8 +73,10 @@ func main() {
 
 	// TODO: Add cache-busting technic by versioning the files
 	// TODO: Add generic form to access all assets (Aware to avoid leaks!!!)
-	assets.File("/htmx", "assets/js/htmx/htmx@1.9.10.min.js")
+	assets.File("/htmx", "assets/js/htmx@1.9.10.min.js")
+	assets.File("/hls", "assets/js/hls@1.js")
 	assets.File("/tailwind", "assets/css/tailwindcss/dist/style.css")
+	app.Static("/video", "assets/video")
 
 	if environment == "DEV" {
 		devHandler := &handler.DevHandler{}
