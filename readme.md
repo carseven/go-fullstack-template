@@ -4,34 +4,33 @@
 
 Install templ and air locally on your machine:
 
-```bash
+```shell
 go install github.com/a-h/templ/cmd/templ@latest
 ```
 
-```bash
+```shell
 go install github.com/cosmtrek/air@latest
 ```
 
 Make sure go binary are exported to the path:
 
-```bash
+```shell
 export PATH="$HOME/go/bin:$PATH"
 ```
 
 Install nodejs and npm to be able to use the tailwind compiler:
 Personally I install nodejs using nvm or fvm.
 
-Check tailwind cli works properly.
+Install tailwind and tailwind plugins:
 
-```bash
-npx tailwind --help
+```shell
+npm i
 ```
 
-If a specific version is need instead of the latest, just change the make file with the proper version:
-Be aware of the tailwind.config.js file might change. Edited as you like it
+Generate tailwind css from templates:
 
-```bash
-npx tailwind@3.4.0 -i ./assets/css/tailwindcss/tailwind.css -o ./assets/css/tailwindcss/dist/style.css
+```shell
+npm run tailwind:build
 ```
 
 For more info about tailwind check https://tailwindcss.com/docs/installation
@@ -40,23 +39,23 @@ For more info about tailwind check https://tailwindcss.com/docs/installation
 
 Use make to build or run the application:
 
-```bash
+```shell
 make build
 ```
 
-```bash
+```shell
 make run
 ```
 
 Generate templ and tailwind:
 
-```bash
+```shell
 make generate
 ```
 
 Use air to launch the hot reloading mode:
 
-```bash
+```shell
 air
 ```
 
@@ -69,7 +68,7 @@ Basic features (MVP)
 - [ ] Load markdown from external files and render component (Example: CMS to load md files)
 - [ ] Use Notion as a CMS to retrieve markdown
 - [ ] Add database integration layer
-- [ ] Configure tailwind with Dark mode
+- [x] Configure tailwind user color-preference media query with Dark mode
 - [ ] Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter (separate API from frontend (/api and /app))
 - [ ] Implement basic testing
 - [ ] Implement CI/CD with github actions and AWS lambda function?
@@ -79,7 +78,8 @@ Basic features (MVP)
 - [ ] Swagger for documenting the APIs
 - [ ] Documentation page
 - [ ] Default error handling, 404 not found and other methods
-- [x] Video streaming use case
+- [x] Upload videos and transform to HLS to stream
+- [ ] Use case to connect webcam thro RTMP and transform to HLS
 - [ ] Observability
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode
@@ -98,7 +98,7 @@ Optional features
 
 Sometimes when killing the dev server does not kill the port 3000. For the moment kill it manually
 
-```bash
+```shell
 lsof -i:3000
 
 pkill pid

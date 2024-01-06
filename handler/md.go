@@ -2,6 +2,8 @@ package handler
 
 import (
 	"github.com/carseven/go-fullstack-template/view/cases/blog"
+	"github.com/carseven/go-fullstack-template/view/components/footer"
+	"github.com/carseven/go-fullstack-template/view/components/navbar"
 	layout "github.com/carseven/go-fullstack-template/view/layouts"
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/html"
@@ -26,7 +28,7 @@ Example of text
 func (h MdHandler) HandleMd(c echo.Context) error {
 	blogHtml := mdToHTML([]byte(mds))
 	blogView := blog.View(string(blogHtml))
-	return render(c, layout.Base(blogView, h.Environment))
+	return render(c, layout.Base(blogView, navbar.NavbarComponent(), footer.FooterComponent(), h.Environment))
 }
 
 func mdToHTML(md []byte) []byte {

@@ -52,7 +52,67 @@ func loadDevServer() templ.ComponentScript {
 	}
 }
 
-func Base(component templ.Component, environment string) templ.Component {
+func checkColorSchemaPreference() templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_checkColorSchemaPreference_2af4`,
+		Function: `function __templ_checkColorSchemaPreference_2af4(){// On page load or when changing themes, best to add inline in ` + "`" + `head` + "`" + ` to avoid FOUC
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }}`,
+		Call:       templ.SafeScript(`__templ_checkColorSchemaPreference_2af4`),
+		CallInline: templ.SafeScriptInline(`__templ_checkColorSchemaPreference_2af4`),
+	}
+}
+
+func handleColoSchemaSwitcher() templ.ComponentScript {
+	return templ.ComponentScript{
+		Name: `__templ_handleColoSchemaSwitcher_15fa`,
+		Function: `function __templ_handleColoSchemaSwitcher_15fa(){var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+	var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+	// Change the icons inside the button based on previous settings
+	if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+		themeToggleLightIcon.classList.remove('hidden');
+	} else {
+		themeToggleDarkIcon.classList.remove('hidden');
+	}
+
+	var themeToggleBtn = document.getElementById('theme-toggle');
+	themeToggleBtn.addEventListener('click', function() {
+
+		// toggle icons inside button
+		themeToggleDarkIcon.classList.toggle('hidden');
+		themeToggleLightIcon.classList.toggle('hidden');
+
+		// if set via local storage previously
+		if (localStorage.getItem('color-theme')) {
+			if (localStorage.getItem('color-theme') === 'light') {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+			}
+
+		// if NOT set via local storage previously
+		} else {
+			if (document.documentElement.classList.contains('dark')) {
+				document.documentElement.classList.remove('dark');
+				localStorage.setItem('color-theme', 'light');
+			} else {
+				document.documentElement.classList.add('dark');
+				localStorage.setItem('color-theme', 'dark');
+			}
+		}
+	});}`,
+		Call:       templ.SafeScript(`__templ_handleColoSchemaSwitcher_15fa`),
+		CallInline: templ.SafeScriptInline(`__templ_handleColoSchemaSwitcher_15fa`),
+	}
+}
+
+func Base(component templ.Component, navbar templ.Component, footer templ.Component, environment string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -110,25 +170,11 @@ func Base(component templ.Component, environment string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><script src=\"/assets/hls\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var7 := ``
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><script src=\"https://cdn.jsdelivr.net/npm/hls.js@1\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var8 := ``
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = checkColorSchemaPreference().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -138,11 +184,45 @@ func Base(component templ.Component, environment string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/assets/tailwind\"></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<link rel=\"stylesheet\" href=\"/assets/tailwind\"><script defer src=\"/assets/flowbite\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var7 := ``
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var7)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script></head>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderScriptItems(ctx, templ_7745c5c3_Buffer, handleColoSchemaSwitcher())
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body class=\"bg-white dark:bg-black\" onload=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var8 templ.ComponentScript = handleColoSchemaSwitcher()
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8.Call)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = navbar.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = component.Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = footer.Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,5 +1,5 @@
 generate:
-	@npx tailwindcss -i ./assets/css/tailwindcss/tailwind.css -o ./assets/css/tailwindcss/dist/style.css --minify
+	@npm run tailwind:build
 	@templ generate
 run:
 	@make generate

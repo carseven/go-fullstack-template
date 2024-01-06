@@ -15,13 +15,13 @@ script HlsLoader(streamId string) {
         hls.loadSource(`/video/${streamId}/${streamId}-master.m3u8`);
         // bind them together
         hls.attachMedia(video);
-        video.play();
     } else {
         alert("HLS not suppoted, use compatible browser as Google Chrome, Safari, Firefox, etc!")
     }
 }
 
 templ StreamView(userLanguage []string, streamId string) {
+	<script src="/assets/hls"></script>
 	<video controls autoplay id="stream"></video>
 	@HlsLoader(streamId)
 }

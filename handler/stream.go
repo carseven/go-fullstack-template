@@ -9,6 +9,8 @@ import (
 	"path"
 
 	"github.com/carseven/go-fullstack-template/view/cases/stream"
+	"github.com/carseven/go-fullstack-template/view/components/footer"
+	"github.com/carseven/go-fullstack-template/view/components/navbar"
 	layout "github.com/carseven/go-fullstack-template/view/layouts"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -23,14 +25,14 @@ func (h *StreamHandler) HandleStream(c echo.Context) error {
 
 	if streamId != "" {
 		userLanguage := GetRequestHeaderKey(c, "Accept-Language")
-		return render(c, layout.Base(stream.StreamView(userLanguage, streamId), h.Environment))
+		return render(c, layout.Base(stream.StreamView(userLanguage, streamId), navbar.NavbarComponent(), footer.FooterComponent(), h.Environment))
 	} else {
 		userLanguage := GetRequestHeaderKey(c, "Accept-Language")
 		streamIds, err := getVideosIds()
 		if err != nil {
 			return err
 		}
-		return render(c, layout.Base(stream.DashboardView(userLanguage, streamIds), h.Environment))
+		return render(c, layout.Base(stream.DashboardView(userLanguage, streamIds), navbar.NavbarComponent(), footer.FooterComponent(), h.Environment))
 	}
 
 }

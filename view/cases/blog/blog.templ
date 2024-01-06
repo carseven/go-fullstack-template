@@ -1,7 +1,9 @@
 package blog
 
 templ View(blogHtml string) {
-	<article class="markdown">
+	// Use https://tailwindcss.com/docs/typography-plugin to style markdown
+	// Also the markdown css class from tailwind.css
+	<article class="markdown prose lg:prose-xl dark:prose-invert">
 		@renderHtmlUnsafe(blogHtml)
 	</article>
 }

@@ -12,8 +12,8 @@ import "bytes"
 
 func HlsLoader(streamId string) templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_HlsLoader_d5b4`,
-		Function: `function __templ_HlsLoader_d5b4(streamId){if (Hls.isSupported()) {
+		Name: `__templ_HlsLoader_d4c0`,
+		Function: `function __templ_HlsLoader_d4c0(streamId){if (Hls.isSupported()) {
         var video = document.getElementById('stream');
         var hls = new Hls();
         hls.on(Hls.Events.MEDIA_ATTACHED, function () {
@@ -27,12 +27,11 @@ func HlsLoader(streamId string) templ.ComponentScript {
         hls.loadSource(` + "`" + `/video/${streamId}/${streamId}-master.m3u8` + "`" + `);
         // bind them together
         hls.attachMedia(video);
-        video.play();
     } else {
         alert("HLS not suppoted, use compatible browser as Google Chrome, Safari, Firefox, etc!")
     }}`,
-		Call:       templ.SafeScript(`__templ_HlsLoader_d5b4`, streamId),
-		CallInline: templ.SafeScriptInline(`__templ_HlsLoader_d5b4`, streamId),
+		Call:       templ.SafeScript(`__templ_HlsLoader_d4c0`, streamId),
+		CallInline: templ.SafeScriptInline(`__templ_HlsLoader_d4c0`, streamId),
 	}
 }
 
@@ -49,7 +48,16 @@ func StreamView(userLanguage []string, streamId string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<video controls autoplay id=\"stream\"></video>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"/assets/hls\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var2 := ``
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var2)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><video controls autoplay id=\"stream\"></video>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

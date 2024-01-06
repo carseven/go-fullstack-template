@@ -75,6 +75,7 @@ func main() {
 	// TODO: Add generic form to access all assets (Aware to avoid leaks!!!)
 	assets.File("/htmx", "assets/js/htmx@1.9.10.min.js")
 	assets.File("/hls", "assets/js/hls@1.js")
+	assets.File("/flowbite", "node_modules/flowbite/dist/flowbite.min.js")
 	assets.File("/tailwind", "assets/css/tailwindcss/dist/style.css")
 	app.Static("/video", "assets/video")
 
