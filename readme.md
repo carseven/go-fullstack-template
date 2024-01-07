@@ -35,6 +35,12 @@ npm run tailwind:build
 
 For more info about tailwind check https://tailwindcss.com/docs/installation
 
+Install ffmpeg for transcoding mp4 video to HLS format
+
+```shell
+brew install ffmpeg
+```
+
 ## Build
 
 Use make to build or run the application:
@@ -64,23 +70,10 @@ air
 Basic features (MVP)
 
 - [x] Implement HTMX to have dynamic content and state management (https://templ.guide/server-side-rendering/htmx/ and https://htmx.org)
-- [ ] Format DEV logs properly for easy DEBUG
-- [ ] Load markdown from external files and render component (Example: CMS to load md files)
-- [ ] Use Notion as a CMS to retrieve markdown
-- [ ] Add database integration layer
 - [x] Configure tailwind user color-preference media query with Dark mode
-- [ ] Implement basic structure https://templ.guide Nice example to follow https://github.com/a-h/templ/tree/main/examples/counter (separate API from frontend (/api and /app))
-- [ ] Implement basic testing
-- [ ] Implement CI/CD with github actions and AWS lambda function?
-- [ ] Add metadata parametrization to improve SEO by default
 - [x] Add language translation
 - [ ] Load language translation from JSON file instead of struct
-- [ ] Swagger for documenting the APIs
-- [ ] Documentation page
-- [ ] Default error handling, 404 not found and other methods
 - [x] Upload videos and transform to HLS to stream
-- [ ] Use case to connect webcam thro RTMP and transform to HLS
-- [ ] Observability
 - [x] Generate the same template but for static files (Example: Blog)
 - [x] Dev and Prod mode
 - [x] Client reloading web server has changed (Websocket client communication to reload HTML pages when view has changed) Replicate Vite implementation (WS to send event of reload to the client. Also, client PING websocket to check connection alive and then polling to relaunch when the server connect again?)
@@ -88,11 +81,6 @@ Basic features (MVP)
 - [x] Add cache mechanism for static files
 - [x] Add vscode settings and extensions recommendation HTMX, templ syntax, tailwind, etc.
 - [x] CSS design system (Tailwind) (https://tailwindcss.com/docs/installation)
-
-Optional features
-
-- [ ] Inject JS or Typescript using vite https://github.com/pilcrowOnPaper/go-vite (As a alternative, because sometimes is need it to done client side outside HTMX, for example, integrate with legacy code or use complex things already done in JS!)
-- [ ] Find more inspiration with Astro templates, really great ideas
 
 ## Bugs
 
