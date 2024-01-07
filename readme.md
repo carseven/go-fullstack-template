@@ -1,4 +1,4 @@
-# GO server with templates
+# GO server side rendring with Templ, HTMX and TailwindCSS
 
 ## Install
 
